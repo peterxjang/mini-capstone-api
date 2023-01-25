@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create(
+      supplier_id: params[:supplier_id],
       name: params[:name],
       price: params[:price],
       image_url: params[:image_url],
