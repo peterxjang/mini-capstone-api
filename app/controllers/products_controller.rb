@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
       description: params[:description],
     )
     if @product.valid?
+      Image.create(product_id: @product.id, url: params[:image_url])
       render :show
     else
       render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
