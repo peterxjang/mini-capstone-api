@@ -9,7 +9,6 @@ class ProductsController < ApplicationController
       supplier_id: params[:supplier_id],
       name: params[:name],
       price: params[:price],
-      image_url: params[:image_url],
       description: params[:description],
     )
     if @product.valid?
@@ -29,7 +28,6 @@ class ProductsController < ApplicationController
     @product.update(
       name: params[:name] || @product.name,
       price: params[:price] || @product.price,
-      image_url: params[:image_url] || @product.image_url,
       description: params[:description] || @product.description,
     )
     if @product.valid?
