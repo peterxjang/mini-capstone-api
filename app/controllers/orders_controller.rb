@@ -1,4 +1,9 @@
 class OrdersController < ApplicationController
+  def index
+    @orders = Order.all
+    render :index
+  end
+
   def create
     @order = Order.create(
       user_id: params[:user_id],
