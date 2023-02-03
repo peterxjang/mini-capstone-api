@@ -10,10 +10,14 @@ class OrdersController < ApplicationController
     @order = Order.create(
       user_id: current_user.id,
     )
-    carted_products = current_user.carted_products.where(status: "carted")
-    carted_products.update_all(status: "purchased", order_id: @order.id)
-    @order.update_totals
-    render :show
+    if @order.valid?
+      carted_products = current_user.carted_products.where(status: "carted")
+      carted_products.update_all(status: "purchased", order_id: @order.id)
+      @order.update_totals
+      render :show
+    else
+      render json: { errors: @order.errors.full_messages }, status: 422
+    end
   end
 
   def show
