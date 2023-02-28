@@ -2,8 +2,9 @@ require "test_helper"
 
 class OrdersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = User.create(name: "Test", email: "test@test.com", password: "password")
-    @order = Order.create(user_id: @user.id)
+    @user = User.create!(name: "Test", email: "test@test.com", password: "password")
+    @carted_product = CartedProduct.create!(user_id: @user.id, product_id: Product.first.id, quantity: 1, status: "carted")
+    @order = Order.create!(user_id: @user.id)
     post "/sessions.json", params: { email: "test@test.com", password: "password" }
     data = JSON.parse(response.body)
     @jwt = data["jwt"]
