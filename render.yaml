@@ -1,0 +1,20 @@
+databases:
+  - name: mini-capstone-api
+    plan: free
+    databaseName: mini-capstone-api
+    user: mini-capstone-api
+
+services:
+  - type: web
+    plan: free
+    name: mini-capstone-api
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mini-capstone-api
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
